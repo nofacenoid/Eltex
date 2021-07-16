@@ -1,0 +1,42 @@
+#include <stdio.h>
+#define N 5
+
+
+void funcPrintQuadMass (const int Massive[N][N]){
+	for (int i = 0, ii = 0; i<N; i++){
+		for (ii = 0; ii<N; ii++){
+			printf ("%d\t", Massive[i][ii]);
+		}
+		printf ("\n");
+	}
+}
+
+int main(void) {
+	int Snail [N][N] = {0};
+	int num = 1; // Число
+	for (int begin = 0, end = N - 1, i = 0, c_i = 0; num < N*N;){
+		for (i = begin, c_i = begin; i <= end; i++){
+			Snail[c_i][i] = num++;
+		}
+		for (c_i = end, i = begin + 1; i <= end; i++){
+			Snail[i][c_i] = num++;
+		}
+		end--;
+		for (c_i = end + 1, i = end; i >= begin; i--){
+			Snail[c_i][i] = num++;
+		}
+		begin++;
+		for (c_i = begin - 1, i = end; i >= begin; i--){
+			Snail[i][c_i] = num++;
+		}
+	}
+	//Добавляем последний элемент в центр нечетной матрицы
+	if ( N&0x1 == 1){
+		Snail[N>>1][N>>1] = num;
+	}
+
+	funcPrintQuadMass(Snail);
+	
+	getchar();
+	return 0;
+}
